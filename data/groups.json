@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "示例：河南洛天依粉丝群",
+    "qq_group": "100000001",
+    "backup_qq_group": "",
+    "province": "河南省",
+    "city": "郑州市",
+    "level": "city",
+    "activity_level": 1,
+    "member_count": 320,
+    "description": "河南本地粉丝交流，常组织线下观影与歌友会",
+    "public_note": "",
+    "lat": 34.7466,
+    "lng": 113.6254
+  },
+  {
+    "id": 2,
+    "name": "示例：广东洛天依粉丝群",
+    "qq_group": "100000002",
+    "backup_qq_group": "",
+    "province": "广东省",
+    "city": "广州市",
+    "level": "city",
+    "activity_level": 2,
+    "member_count": 560,
+    "description": "珠三角粉丝群，每周有新曲讨论",
+    "public_note": "",
+    "lat": 23.1291,
+    "lng": 113.2644
+  },
+  {
+    "id": 3,
+    "name": "示例：江浙沪粉丝群",
+    "qq_group": "100000003",
+    "backup_qq_group": "",
+    "province": "上海市",
+    "city": "上海市",
+    "level": "province",
+    "activity_level": 3,
+    "member_count": 410,
+    "description": "华东地区综合交流",
+    "public_note": "",
+    "lat": 31.2304,
+    "lng": 121.4737
+  },
+  {
+    "id": 4,
+    "name": "示例：全国综合聊天群",
+    "qq_group": "100000004",
+    "backup_qq_group": "",
+    "province": "",
+    "city": "",
+    "level": "city",
+    "activity_level": 4,
+    "member_count": 890,
+    "description": "不限地区，日常闲聊与新曲速报",
+    "public_note": "",
+    "lat": 0,
+    "lng": 0
+  }
+]

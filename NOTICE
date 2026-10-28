@@ -1,0 +1,26 @@
+CVIMap — 中文 VOCALOID 资讯地图精简内核
+Copyright 2026 Tianyi Community Team
+
+本软件依 PolyForm Noncommercial 1.0.0 许可协议授权（见 LICENSE）。
+未经书面许可，不得将本软件或其衍生作品用于商业目的。
+
+---
+
+第三方与数据来源
+
+- Leaflet（BSD-2-Clause）— 地图渲染库，<https://leafletjs.com>
+- 天地图 Tianditu（国家基础地理信息中心）— 底图瓦片服务，
+  使用需遵守其服务条款、保留审图号与版权标识，<https://www.tianditu.gov.cn>
+- PHP（PHP License 3.01）
+
+数据文件说明
+
+本项目运行时需要 `data/groups.json`（粉丝群）与 `data/events.json`（活动），
+二者由部署者自行提供，本仓库仅附带示例数据。
+
+省 / 市级行政边界（`china-provinces.geojson`、`china-cities.geojson`）同样不包含在
+本仓库中，需部署者自备，缺失时不影响地图与列表的正常使用。
+边界数据的版权与合规责任由数据提供方及部署者各自承担，本项目不对其来源、
+精度与合规性作出任何保证。坐标基准须为 EPSG:4490。
+
+站点展示的粉丝群与活动信息由部署者维护，其真实性与合规性由部署者负责。
