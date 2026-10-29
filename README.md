@@ -9,7 +9,15 @@
 
 ## 快速开始
 
-1. 复制配置文件并填入天地图密钥
+1. 克隆仓库
+
+克隆仓库至您的服务端。
+
+```bash
+git clone https://github.com/Tianyi-Communtiy-Team/CVIMap.git
+```
+
+2. 复制配置文件并填入天地图密钥
 
    ```bash
    cp config.example.php config.php
@@ -17,12 +25,12 @@
 
    编辑 `config.php`，把 `tianditu_keys` 里的 `tk` / `sk（如有）` 替换成**你申请的**天地图 Token。
 
-2. 放上数据
+3. 放上数据
 
    编辑 `data/groups.json` 与 `data/events.json`（格式见下）。
    仓库自带几条示例数据，可直接打开看效果。
 
-3. 用任意 PHP 环境跑起来
+4. 用任意 PHP 环境跑起来
 
    ```bash
    php -S 127.0.0.1:8080
