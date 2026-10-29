@@ -209,6 +209,10 @@ body { background: #eaf4fb; color: #1a2e3b; }
     <a href="api.php?action=groups" class="menu-item">群列表接口</a>
     <a href="api.php?action=events" class="menu-item">活动接口</a>
     <?php if ($repoUrl !== ''): ?>
+    <a href="<?= e($repoUrl) ?>/issues" target="_blank" rel="noopener" class="menu-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="menu-gh-icon"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>意见反馈</span>
+    </a>
     <a href="<?= e($repoUrl) ?>" target="_blank" rel="noopener" class="menu-item menu-item-gh">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="menu-gh-icon"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
         <span>GitHub 开源仓库</span>
@@ -226,6 +230,7 @@ body { background: #eaf4fb; color: #1a2e3b; }
     <div class="legend-item"><span class="legend-swatch" style="background:rgba(241,196,15,.3);border-color:#f1c40f"></span> ② 较活跃</div>
     <div class="legend-item"><span class="legend-swatch" style="background:rgba(46,204,113,.3);border-color:#2ecc71"></span> ③ 一般</div>
     <div class="legend-item"><span class="legend-swatch" style="background:rgba(39,174,96,.3);border-color:#27ae60"></span> ④ 相对安静</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:rgba(200,208,212,.12);border-color:#a9b4ba"></span> 无群城市</div>
     <div class="legend-title" style="margin-top:.6rem">活动类型</div>
     <div class="legend-item"><span class="legend-swatch" style="background:rgba(231,76,60,.3);border-color:#e74c3c"></span> 线下活动</div>
     <div class="legend-item"><span class="legend-swatch" style="background:rgba(46,204,113,.3);border-color:#2ecc71"></span> 线上活动</div>
@@ -615,7 +620,12 @@ body { background: #eaf4fb; color: #1a2e3b; }
                 var name = String(p.name || p.NAME || '');
                 if (isCity) {
                     var prov = String(p.province || p.NAME_1 || '');
-                    return { color: regionColor('c:' + prov + '|' + name, '#c8d0d4'), weight: 1.5, opacity: .85, fillColor: regionColor('c:' + prov + '|' + name, '#c8d0d4'), fillOpacity: .18, lineJoin: 'round' };
+                    var key = 'c:' + prov + '|' + name;
+                    if (regionLevels[key] === undefined) {
+                        return { color: '#a9b4ba', weight: 1.2, opacity: .75, fillColor: '#c8d0d4', fillOpacity: .05, lineJoin: 'round' };
+                    }
+                    var col2 = regionColor(key, '#c8d0d4');
+                    return { color: col2, weight: 1.5, opacity: .85, fillColor: col2, fillOpacity: .18, lineJoin: 'round' };
                 }
                 var col = regionColor('p:' + name, '#95a5a6');
                 return { color: col, weight: 2, opacity: .85, fillColor: col, fillOpacity: .18, dashArray: '4 3' };
@@ -625,9 +635,10 @@ body { background: #eaf4fb; color: #1a2e3b; }
                 var name = String(p.name || p.NAME || '');
                 if (isCity) {
                     var prov = String(p.province || p.NAME_1 || '');
+                    var empty = regionLevels['c:' + prov + '|' + name] === undefined;
                     layer.bindPopup(regionPopup(name, 'c:' + prov + '|' + name, prov));
-                    layer.on('mouseover', function () { layer.setStyle({ fillOpacity: .32 }); });
-                    layer.on('mouseout', function () { layer.setStyle({ fillOpacity: .18 }); });
+                    layer.on('mouseover', function () { layer.setStyle({ fillOpacity: empty ? .14 : .32 }); });
+                    layer.on('mouseout', function () { layer.setStyle({ fillOpacity: empty ? .05 : .18 }); });
                 } else {
                     layer.bindPopup(regionPopup(name, 'p:' + name, ''));
                     layer.on('mouseover', function () { layer.setStyle({ fillOpacity: .32 }); });
