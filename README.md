@@ -1,8 +1,6 @@
 # CVIMap
 
-中文 VOCALOID 资讯地图的**精简内核**：一张天地图底图 + 粉丝群 / 活动数据，仅此而已。
-
-完整站点（账号体系、投稿审核、后台管理、App 接口等）不在此仓库，这里只保留「打开就能看地图」所需的最小实现。
+欢迎使用中文VOCALOID资讯地图！这是一个开源项目，源码发布遵循**PolyForm Noncommercial 1.0.0**。详见[LICENSE](https://github.com/Tianyi-Communtiy-Team/CVIMap/blob/main/LICENSE)
 
 ## 特性
 
@@ -19,21 +17,28 @@
 
 ## 快速开始
 
-1. 复制配置文件并填入天地图密钥
+1. 克隆仓库
+
+克隆仓库至您的服务端。
+
+```bash
+git clone https://github.com/Tianyi-Communtiy-Team/CVIMap.git
+```
+
+2. 复制配置文件并填入天地图密钥
 
    ```bash
    cp config.example.php config.php
    ```
 
-   编辑 `config.php`，把 `tianditu_keys` 里的 `tk` / `sk` 换成你在
-   [天地图控制台](https://console.tianditu.gov.cn/api/key) 申请的**浏览器端**密钥。
+   编辑 `config.php`，把 `tianditu_keys` 里的 `tk` / `sk（如有）` 替换成**你申请的**天地图 Token。
 
-2. 放上数据
+3. 放上数据
 
    编辑 `data/groups.json` 与 `data/events.json`（格式见下）。
    仓库自带几条示例数据，可直接打开看效果。
 
-3. 用任意 PHP 环境跑起来
+4. 用任意 PHP 环境跑起来
 
    ```bash
    php -S 127.0.0.1:8080
@@ -41,8 +46,6 @@
 
    浏览器打开 <http://127.0.0.1:8080/index.php> 即可。生产环境把站点根目录指向本目录，
    保证 `data/` 可读即可，无需写入权限。
-
-> 换句话说：**提供群列表（含活动）+ 天地图 tk，就能访问。**
 
 ## 数据格式
 
@@ -52,18 +55,18 @@
 [
   {
     "id": 1,
-    "name": "河南洛天依粉丝群",
+    "name": "瓦纳海姆锦依卫聚集地（群名）",
     "qq_group": "100000001",
     "backup_qq_group": "",
-    "province": "河南省",
-    "city": "郑州市",
+    "province": "瓦纳海姆（省份）",
+    "city": "瓦纳海姆（城市）",
     "level": "city",
     "activity_level": 1,
     "member_count": 320,
-    "description": "河南本地粉丝交流",
+    "description": "（简介）",
     "public_note": "",
-    "lat": 34.7466,
-    "lng": 113.6254
+    "lat": 39.9248,
+    "lng": 116.3267
   }
 ]
 ```
@@ -87,9 +90,9 @@
     "end_date": "2026-07-12",
     "province": "河南省",
     "city": "郑州市",
-    "address": "郑州市金水区某展演中心",
+    "address": "郑州市某展演中心",
     "qq_group": "100000001",
-    "description": "现场合唱与周边交换",
+    "description": "周边交换",
     "public_note": "",
     "lat": 34.7466,
     "lng": 113.6254
@@ -137,15 +140,14 @@
 - `china-provinces.geojson`
 - `china-cities.geojson`
 
-**本仓库不包含这两个文件**，缺失时地图、群列表、活动、搜索全部照常工作，只是没有区域着色。
+为规避版权问题，**本仓库源码、发行版不包含行政区边界文件**。
 
 需要自备时请注意：
 
-- 坐标基准必须是 **EPSG:4490（CGCS2000）**，与天地图一致。阿里云 DataV.GeoAtlas 下发的是 GCJ-02，直接叠加会偏移数百米
+- 坐标基准必须是 **EPSG:4490（CGCS2000）**，与天地图一致。
 - `properties` 至少包含 `name`（省级的 `province` / 市级的 `province` 字段用于配对，缺失时市级会退化为省级配色）
-- 推荐来源：天地图服务中心「数据资源 → 行政区划可视化」
+- 原站使用来源：天地图资源中心
   <https://cloudcenter.tianditu.gov.cn/administrativeDivision>
-  （登录 → 地区选中国 → 下载区域选省 / 市 → 格式 GeoJSON）
 - 只需要中国范围内的省、市两级，不需要县级
 - 国界与南海诸岛的画法以国家标准地图为准
 
@@ -160,7 +162,5 @@ CVI_DB_HOST=localhost CVI_DB_NAME=你的库名 CVI_DB_USER=用户名 CVI_DB_PASS
 
 脚本只读取 `status = 'approved'` 的 `fans_groups` 与 `events`，导出到 `data/` 下。
 
-## 许可
 
-[PolyForm Noncommercial 1.0.0](LICENSE) — 允许非商业性使用、修改与分发，禁止用于商业目的。
-Required Notice: Copyright 2026 Tianyi Community Team。详见 [NOTICE](NOTICE)。
+Required Notice: Copyright 2026 Tianyi Community Team。详见[NOTICE](https://github.com/Tianyi-Communtiy-Team/CVIMap/blob/main/NOTICE)。
