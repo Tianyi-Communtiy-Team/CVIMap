@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+- [ ] 我已经通过搜索确认，我提出的问题曾经没有在 [Issues](https://github.com/Tianyi-Communtiy-Team/CVIMap/issues) 中出现过。
+
 **描述该错误**
 请尽可能详细描述该问题导致的错误。
 
