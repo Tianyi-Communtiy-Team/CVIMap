@@ -620,7 +620,8 @@ body { background: #eaf4fb; color: #1a2e3b; }
                 var name = String(p.name || p.NAME || '');
                 if (isCity) {
                     var prov = String(p.province || p.NAME_1 || '');
-                    var key = 'c:' + prov + '|' + name;
+                    var muni = ['北京市', '天津市', '上海市', '重庆市'].indexOf(prov) !== -1;
+                    var key = muni ? ('p:' + prov) : ('c:' + prov + '|' + name);
                     if (regionLevels[key] === undefined) {
                         return { color: '#a9b4ba', weight: 1.2, opacity: .75, fillColor: '#c8d0d4', fillOpacity: .05, lineJoin: 'round' };
                     }
@@ -635,8 +636,10 @@ body { background: #eaf4fb; color: #1a2e3b; }
                 var name = String(p.name || p.NAME || '');
                 if (isCity) {
                     var prov = String(p.province || p.NAME_1 || '');
-                    var empty = regionLevels['c:' + prov + '|' + name] === undefined;
-                    layer.bindPopup(regionPopup(name, 'c:' + prov + '|' + name, prov));
+                    var muni = ['北京市', '天津市', '上海市', '重庆市'].indexOf(prov) !== -1;
+                    var rkey = muni ? ('p:' + prov) : ('c:' + prov + '|' + name);
+                    var empty = regionLevels[rkey] === undefined;
+                    layer.bindPopup(regionPopup(name, rkey, prov));
                     layer.on('mouseover', function () { layer.setStyle({ fillOpacity: empty ? .14 : .32 }); });
                     layer.on('mouseout', function () { layer.setStyle({ fillOpacity: empty ? .05 : .18 }); });
                 } else {
