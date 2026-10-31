@@ -2,10 +2,17 @@
 
 <a href="https://map.ltycommunity.cn">
     <img src="https://cvimap.cn-nb1.rains3.com/image/icon.png" width="200" height="200" alt="CVIMap">
-  </a>
-
+</a>
 
 # CVIMap
+
+<a href="https://www.php.net">
+    <img src="https://img.shields.io/badge/Language-PHP-66ccff" width="94" height="20" alt="Language">
+</a>
+
+<a href="https://github.com/Tianyi-Communtiy-Team/CVIMap/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-66ccff" width="234" height="20" alt="License">
+</a>
 
 欢迎使用中文 VOCALOID 资讯地图！这是一个开源项目，源码的发布遵循 **PolyForm Noncommercial 1.0.0**。详见[LICENSE](https://github.com/Tianyi-Communtiy-Team/CVIMap/blob/main/LICENSE)
 
