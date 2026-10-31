@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/geetest.php';
 
 if (!function_exists('isLocalGroupName')) {
     function isLocalGroupName($name) {

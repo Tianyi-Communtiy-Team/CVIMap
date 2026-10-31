@@ -29,6 +29,8 @@ define('THEME_BG_END', '#eaf4fb');
 
 define('UPLOAD_DIR', __DIR__ . '/uploads');
 define('UPLOAD_MAX_SIZE', 5 * 1024 * 1024);
+define('SESSION_LIFETIME', 86400 * 30);
+define('PASS_URL', 'https://user.ltycommunity.cn');
 
 // 天地图浏览器端密钥，可填多个，页面会自动轮询并在失败时切换
 // 申请：https://console.tianditu.gov.cn/api/key
