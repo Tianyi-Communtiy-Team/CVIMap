@@ -226,15 +226,6 @@ html, body { height: 100%; overflow: hidden; -webkit-tap-highlight-color: transp
 .header-menu .menu-item-gh { font-weight: 600; }
 .header-menu .menu-gh-icon { width: 16px; height: 16px; flex: none; }
 
-.tianyi-deco {
-    position: fixed; right: -2vw; bottom: -3vh; z-index: 6;
-    height: min(52vh, 480px); aspect-ratio: 440/1004;
-    pointer-events: none; user-select: none;
-    background: rgba(102,204,255,.1); filter: blur(2px);
-    -webkit-mask: url('core_assets/core_tianyi.png') no-repeat center bottom / contain;
-    mask: url('core_assets/core_tianyi.png') no-repeat center bottom / contain;
-}
-
 .sidebar-toggle {
     display: none;
     position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1500;
@@ -333,7 +324,6 @@ html, body { height: 100%; overflow: hidden; -webkit-tap-highlight-color: transp
     .loading-bar { top: 54px; }
     .legend { display: none; }
     .attribution { display: none; }
-    .tianyi-deco { height: 34vh; right: -7vw; bottom: -2vh; }
     .sidebar {
         top: auto; bottom: 0; left: 0; right: 0;
         width: 100%; max-height: 56vh;
@@ -576,7 +566,6 @@ border-bottom:1px solid var(--md-outline-variant) !important;
 <body>
 
 <div id="map"></div>
-<div class="tianyi-deco" aria-hidden="true"></div>
 
 <div class="loading-bar" id="loadingBar">
     <div class="bar" id="loadingBarInner"></div>
