@@ -5,7 +5,7 @@ require_once __DIR__ . '/agreement_text.php';
 $type = (($_GET['type'] ?? '') === 'privacy') ? 'privacy' : 'terms';
 $text = agreementDefaultText($type);
 $paras = preg_split('/\n\s*\n/', trim($text));
-$site = cfg('site_name', '中V资讯地图');
+$site = getConfig('site_name', SITE_NAME);
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">

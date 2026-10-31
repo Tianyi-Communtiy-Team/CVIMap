@@ -15,8 +15,9 @@ Copyright 2026 Tianyi Community Team
 
 数据文件说明
 
-本项目运行时需要 `data/groups.json`（粉丝群）与 `data/events.json`（活动），
-二者由部署者自行提供，本仓库仅附带示例数据。
+本项目运行时需要一张 MySQL 数据库，读取其中的 `fans_groups`（粉丝群）与 `events`（活动）
+两张表（建表语句见 `schema.sql`），数据由部署者自行提供与维护。
+页面与接口只展示 `status = 'approved'` 的记录。
 
 省 / 市级行政边界（`china-provinces.geojson`、`china-cities.geojson`）同样不包含在
 本仓库中，需部署者自备，缺失时不影响地图与列表的正常使用。

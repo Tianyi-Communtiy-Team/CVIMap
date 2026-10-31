@@ -4,8 +4,10 @@ require_once __DIR__ . '/common.php';
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 
+$stmt = db()->prepare("SELECT id, name, province, city, activity_level, qq_group FROM fans_groups WHERE status = 'approved' ORDER BY activity_level ASC, name ASC");
+$stmt->execute();
 $allApprovedGroups = [];
-foreach (cviGroups() as $g) {
+foreach ($stmt->fetchAll() as $g) {
     $allApprovedGroups[] = [
         'id' => (int)$g['id'],
         'name' => (string)$g['name'],
@@ -16,7 +18,10 @@ foreach (cviGroups() as $g) {
     ];
 }
 
-$keys = cviTiandituKeys();
+$keys = function_exists('getTiandituKeys') ? getTiandituKeys() : [];
+if (empty($keys) && isset($GLOBALS['TIANDITU_KEYS_DEFAULT'])) {
+    $keys = $GLOBALS['TIANDITU_KEYS_DEFAULT'];
+}
 $mode = strtolower((string)($_GET['mode'] ?? 'auto'));
 if (!in_array($mode, ['auto', 'province', 'city'], true)) {
     $mode = 'auto';
@@ -135,8 +140,8 @@ html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
     <div class="attribution">
         <img src="/tianditu-logo.svg" alt="天地图">
         <div class="txt">
-            <div class="row1"><?= e(cfg('map_number', '')) ?></div>
-            <div class="row2"><?= e(cfg('survey_license', '')) ?></div>
+            <div class="row1"><?= e(getConfig('map_number', '')) ?></div>
+            <div class="row2"><?= e(getConfig('survey_license', '')) ?></div>
         </div>
     </div>
 </div>
@@ -273,12 +278,19 @@ html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
 
     var EMPTY_CITY_COLOR = '#a9b4ba';
     var EMPTY_CITY_FILL = '#c8d0d4';
+    var MUNICIPALITIES = ['北京市', '天津市', '上海市', '重庆市'];
+
+    function isMunicipality(prov) {
+        return MUNICIPALITIES.indexOf(prov) !== -1;
+    }
 
     function isCityEmpty(prov, city) {
+        if (isMunicipality(prov)) return provinceLevelMap[prov] === undefined;
         return cityLevelMap[prov + '|' + city] === undefined;
     }
 
     function getCityColor(prov, city) {
+        if (isMunicipality(prov)) return getProvinceColor(prov);
         var lvl = cityLevelMap[prov + '|' + city];
         if (lvl === undefined) return { color: EMPTY_CITY_COLOR, empty: true };
         return { color: REGION_COLORS[lvl] || '#27ae60' };
@@ -406,7 +418,12 @@ html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
         onEachFeature: function (feature, layer) {
             var prov = extractCityProvince(feature);
             var city = extractCityName(feature);
-            var info = cityGroupMap[prov + '|' + city] || [];
+            var info;
+            if (isMunicipality(prov)) {
+                info = provinceGroupMap[prov] || [];
+            } else {
+                info = cityGroupMap[prov + '|' + city] || [];
+            }
             var empty = isCityEmpty(prov, city);
             layer.on('mouseover', function () {
                 layer.setStyle(empty ? {fillOpacity: 0.14, weight: 1.6} : {fillOpacity: 0.32, weight: 2.5});
