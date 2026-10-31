@@ -123,7 +123,7 @@ if (empty($TIANDITU_KEYS) && isset($GLOBALS['TIANDITU_KEYS_DEFAULT'])) {
 <meta name="apple-mobile-web-app-title" content="<?= e($siteName) ?>">
 <meta name="theme-color" content="#66ccff">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
-<?php $favIcon = getConfig('favicon', ''); if ($favIcon !== ''): ?><?php if (preg_match('#^https?://#i', $favIcon)): ?><link rel="icon" href="<?= e($favIcon) ?>"><?php else: ?><?php $favPath = __DIR__ . '/' . ltrim($favIcon, '/'); ?><link rel="icon" href="favicon.php<?= is_file($favPath) ? '?v=' . filemtime($favPath) : '' ?>"><?php endif; ?><?php endif; ?>
+<?php $favIcon = is_file(__DIR__ . '/core_assets/core_favicon.png') ? 'core_assets/core_favicon.png' : getConfig('favicon', ''); if ($favIcon !== ''): ?><?php if (preg_match('#^https?://#i', $favIcon)): ?><link rel="icon" href="<?= e($favIcon) ?>"><?php else: ?><?php $favPath = __DIR__ . '/' . ltrim($favIcon, '/'); ?><link rel="icon" href="favicon.php<?= is_file($favPath) ? '?v=' . filemtime($favPath) : '' ?>"><?php endif; ?><?php endif; ?>
 <title><?= e($siteName) ?></title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -231,8 +231,8 @@ html, body { height: 100%; overflow: hidden; -webkit-tap-highlight-color: transp
     height: min(52vh, 480px); aspect-ratio: 440/1004;
     pointer-events: none; user-select: none;
     background: rgba(102,204,255,.1); filter: blur(2px);
-    -webkit-mask: url('tianyi.png') no-repeat center bottom / contain;
-    mask: url('tianyi.png') no-repeat center bottom / contain;
+    -webkit-mask: url('core_assets/core_tianyi.png') no-repeat center bottom / contain;
+    mask: url('core_assets/core_tianyi.png') no-repeat center bottom / contain;
 }
 
 .sidebar-toggle {
@@ -633,7 +633,7 @@ border-bottom:1px solid var(--md-outline-variant) !important;
 </div>
 
 <div class="attribution">
-    <img src="/tianditu-logo.svg" alt="天地图">
+    <img src="core_assets/core_tianditu_logo.svg" alt="天地图">
     <div class="txt">
         <div class="row1">GS（2026）4921号</div>
     <div class="row2">甲测资字 11110974</div>

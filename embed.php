@@ -138,7 +138,7 @@ html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
         <div class="legend-item"><span class="legend-swatch" style="background:rgba(200,208,212,.12);border-color:#a9b4ba"></span> 无群城市</div>
     </div>
     <div class="attribution">
-        <img src="/tianditu-logo.svg" alt="天地图">
+        <img src="core_assets/core_tianditu_logo.svg" alt="天地图">
         <div class="txt">
             <div class="row1"><?= e(getConfig('map_number', '')) ?></div>
             <div class="row2"><?= e(getConfig('survey_license', '')) ?></div>

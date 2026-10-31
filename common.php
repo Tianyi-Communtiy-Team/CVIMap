@@ -172,7 +172,7 @@ if (!function_exists('roleBadgeSvg')) {
         if ($s < 8) $s = 8;
         return '<svg viewBox="0 0 24 24" width="' . $s . '" height="' . $s . '" aria-hidden="true" focusable="false">'
             . '<circle cx="12" cy="12" r="9.2" fill="' . $color . '"/>'
-            . '<circle cx="12" cy="12" r="9.6" fill="none" stroke="' . $color . '" stroke-width="3.2" stroke-dasharray="2.5 2.1"/>'
+            . '<circle cx="12" cy="12" r="9.6" fill="none" stroke="' . $color . '" stroke-width="3.2" stroke-dasharray="4.8 3.6"/>'
             . '<path d="M7.1 12.3l3.3 3.3 6.5-6.9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
             . '</svg>';
     }
@@ -740,6 +740,9 @@ if (!function_exists('pageStart')) {
         $bgStart = getConfig('theme_bg_start', THEME_BG_START);
         $bgEnd = getConfig('theme_bg_end', THEME_BG_END);
         $logo = getConfig('logo', '');
+        if ($logo === '' || !is_file(__DIR__ . '/' . ltrim($logo, '/'))) {
+            $logo = is_file(__DIR__ . '/core_assets/core_logo.png') ? 'core_assets/core_logo.png' : '';
+        }
         $accentRgb = implode(',', themeRgbPalette($primary, $accent)[1]);
         $isMapPage = (basename($_SERVER['PHP_SELF']) === 'index.php');
 
@@ -759,7 +762,7 @@ if (!function_exists('pageStart')) {
 <meta name="apple-mobile-web-app-title" content="<?= e($siteName) ?>">
 <meta name="theme-color" content="#66ccff">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
-<?php $favIcon = getConfig('favicon', ''); if ($favIcon !== ''): ?><?php if (preg_match('#^https?://#i', $favIcon)): ?><link rel="icon" href="<?= e($favIcon) ?>"><?php else: ?><?php $favPath = __DIR__ . '/' . ltrim($favIcon, '/'); ?><link rel="icon" href="favicon.php<?= is_file($favPath) ? '?v=' . filemtime($favPath) : '' ?>"><?php endif; ?><?php endif; ?>
+<?php $favIcon = is_file(__DIR__ . '/core_assets/core_favicon.png') ? 'core_assets/core_favicon.png' : getConfig('favicon', ''); if ($favIcon !== ''): ?><?php if (preg_match('#^https?://#i', $favIcon)): ?><link rel="icon" href="<?= e($favIcon) ?>"><?php else: ?><?php $favPath = __DIR__ . '/' . ltrim($favIcon, '/'); ?><link rel="icon" href="favicon.php<?= is_file($favPath) ? '?v=' . filemtime($favPath) : '' ?>"><?php endif; ?><?php endif; ?>
 <title><?= e($title) ?> - <?= e($siteName) ?></title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
@@ -883,9 +886,9 @@ tr:hover{background:rgba(102,204,255,.05)}
 html{scroll-behavior:smooth}
 body{background:radial-gradient(circle at 8% 5%,rgba(255,255,255,.92) 0,rgba(255,255,255,0) 28rem),radial-gradient(circle at 94% 16%,rgba(<?= $accentRgb ?>,.18) 0,rgba(<?= $accentRgb ?>,0) 25rem),linear-gradient(135deg,<?= e($bgStart) ?> 0%,<?= e($bgEnd) ?> 48%,#e8f7fb 100%);letter-spacing:.01em}
 body:before,body:after{content:"";position:fixed;z-index:0;pointer-events:none;user-select:none}
-body:before{left:-6vw;bottom:-8vw;font-size:38vw;line-height:.8;font-weight:800;color:rgba(102,204,255,.1);filter:blur(2px);content:"∞"}
-.tianyi-deco{position:fixed;right:-2vw;bottom:-3vh;z-index:0;height:min(52vh,480px);aspect-ratio:440/1004;pointer-events:none;user-select:none;background:rgba(102,204,255,.1);filter:blur(2px);-webkit-mask:url('tianyi.png') no-repeat center bottom/contain;mask:url('tianyi.png') no-repeat center bottom/contain}
-@media (max-width:720px){.tianyi-deco{height:36vh;right:-6vw;bottom:-2vh}}
+body:before{right:-6vw;bottom:-8vw;font-size:38vw;line-height:.8;font-weight:800;color:rgba(102,204,255,.1);filter:blur(2px);content:"∞"}
+.tianyi-deco{position:fixed;left:-1.5vw;bottom:-1vh;z-index:0;height:min(82vh,720px);aspect-ratio:440/1004;pointer-events:none;user-select:none;background:rgba(102,204,255,.1);filter:blur(2px);-webkit-mask:url('core_assets/core_tianyi.png') no-repeat center bottom/contain;mask:url('core_assets/core_tianyi.png') no-repeat center bottom/contain}
+@media (max-width:720px){.tianyi-deco{height:42vh;left:-3vw;bottom:0}}
 body:after{display:none}
 .header{min-height:68px;padding:.7rem max(1.4rem,calc((100vw - 1320px)/2));background:rgba(255,255,255,.72);border-bottom-color:var(--ui-line);box-shadow:0 8px 28px rgba(47,106,138,.06);backdrop-filter:blur(22px) saturate(145%)}
 .header .logo{font-size:1.05rem;letter-spacing:-.025em;color:var(--ui-ink)}
